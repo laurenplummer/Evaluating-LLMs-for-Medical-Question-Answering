@@ -1,2 +1,1 @@
-# BME6938-Project3-Group6
-Project 3 
+### Evaluating LLMs for Medical Question Answering
