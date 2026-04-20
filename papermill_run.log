@@ -1,0 +1,4 @@
+Usage: python -m papermill [OPTIONS] NOTEBOOK_PATH [OUTPUT_PATH]
+Try 'python -m papermill -h' for help.
+
+Error: No such option: -v
