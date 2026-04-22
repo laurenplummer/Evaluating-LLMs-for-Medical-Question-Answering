@@ -1,2 +1,2 @@
-/Model_Medical_QA.ipynb
-/Model_Medical_QA_executed.ipynbmodels/*.pt
+models/*.pt
+*.pt
