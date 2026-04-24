@@ -2,3 +2,6 @@ models/*.pt
 *.pt
 models/lstm_best.pt
 models/*.pt
+tf_checkpoints/
+*.safetensors
+*.bin
