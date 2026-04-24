@@ -97,4 +97,4 @@ GPU recommended for transformer fine-tuning.
 
 ## Author
 
-Lauren Plummer
+Lauren Plummer, Megan LeComte
