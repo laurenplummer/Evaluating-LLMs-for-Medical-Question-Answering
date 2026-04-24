@@ -4,6 +4,7 @@ A comparison of LSTM and Transformer (DistilGPT-2) language models for medical q
 
 ---
 
+
 ## Overview
 
 This project trains and evaluates two language model architectures on a large medical QA dataset to assess their ability to generate clinically relevant responses to patient questions. The models are compared on loss, perplexity, and ROUGE metrics.
@@ -16,8 +17,11 @@ This project trains and evaluates two language model architectures on a large me
 
 - ~247,000 medical QA examples
 - Each example contains a patient question (`instruction` + `input`) and a doctor's response (`output`)
-- Aggregated from multiple medical QA sub-corpora
-- Manually split 80/10/10 into train, validation, and test sets (no pre-built splits)
+- Aggregated from multiple medical QA sub-corpora with domain-specific medical vocabulary
+- Manually split 80/10/10 into train, validation, and test sets (no pre-built splits available)
+- Minimal missing data; see `EDA_Medical_QA.ipynb` for full dataset analysis
+
+**License:** Please refer to the original dataset page for licensing and citation requirements before use.
 
 ---
 
@@ -31,6 +35,52 @@ This project trains and evaluates two language model architectures on a large me
 ├── models/
 │   └── lstm_best.pt              # Best LSTM checkpoint (saved locally)
 └── README.md
+```
+## Quick Start
+
+### Requirements
+
+- Python 3.10+
+- GPU strongly recommended for transformer fine-tuning (training on CPU will be very slow)
+
+### Installation
+
+```bash
+git clone <your-repo-url>
+cd <repo-folder>
+pip install -r requirements.txt
+```
+
+### Run
+
+1. **Explore the data** — open and run `EDA_Medical_QA.ipynb` end-to-end
+2. **Train and evaluate models** — open and run `Model_Medical_QA.ipynb` end-to-end
+
+> **Expected runtime:** EDA notebook runs in ~5 minutes. Model training takes approximately 1–3 hours per model on a GPU (longer on CPU). Inference and evaluation on the 500-example test sample takes ~10–20 minutes.
+
+---
+
+## Usage Guide
+
+### Step 1: EDA (`EDA_Medical_QA.ipynb`)
+- Loads the HuggingFace dataset automatically
+- Generates summary statistics, length distributions, and vocabulary analysis
+- Outputs plots saved to `results/figures/`
+
+### Step 2: Model Training & Evaluation (`Model_Medical_QA.ipynb`)
+- Trains the LSTM baseline from scratch
+- Fine-tunes DistilGPT-2 using HuggingFace `Trainer`
+- Evaluates both models on a 500-example test sample
+- Generates and saves ROUGE score plots and training curves to `results/figures/`
+- Saves the best LSTM checkpoint to `models/lstm_best.pt`
+
+To run inference on a trained model without retraining, skip the training cells and load the saved checkpoint:
+```python
+# LSTM
+model.load_state_dict(torch.load("models/lstm_best.pt"))
+
+# DistilGPT-2
+model = AutoModelForCausalLM.from_pretrained("./distilgpt2-finetuned")
 ```
 
 ---
@@ -93,8 +143,26 @@ pip install torch transformers datasets evaluate rouge_score nltk matplotlib sea
 
 GPU recommended for transformer fine-tuning.
 
+
+Key packages:
+- `torch`
+- `transformers`
+- `datasets`
+- `evaluate`
+- `rouge_score`
+- `nltk`
+- `matplotlib`
+- `seaborn`
+- `tqdm`
+
+See `requirements.txt` for exact versions.
+
 ---
 
-## Author
+## Authors and Contributions
 
-Lauren Plummer, Megan LeComte
+| Name | Role |
+|---|---|
+| **Lauren Plummer** | EDA notebook, model training & evaluation, README |
+| **Megan LeComte** | Figures, EDA support |
+
