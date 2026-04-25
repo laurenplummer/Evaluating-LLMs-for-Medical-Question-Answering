@@ -165,5 +165,5 @@ See `requirements.txt` for exact versions.
 |---|---|
 | **Lauren Plummer** | EDA notebook, model training & evaluation, README |
 | **Megan LeComte** | Figures, EDA support |
-| **Gopal Viraj**   | Overall code review, Report writing (Abstract, Intro, Literature review|
+| **Gopal Viraj**   | Overall code review, Report writing sections|
 
